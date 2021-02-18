@@ -114,10 +114,8 @@
             this.maskedTextBox1.TabIndex = 7;
             this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
-            this.maskedTextBox1.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox1_MaskInputRejected);
             this.maskedTextBox1.TextChanged += new System.EventHandler(this.maskedTextBox1_TextChanged);
             this.maskedTextBox1.Enter += new System.EventHandler(this.maskedTextBox1_Enter);
-            this.maskedTextBox1.Leave += new System.EventHandler(this.maskedTextBox1_Leave);
             this.maskedTextBox1.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox1_Validating);
             // 
             // UserControl1

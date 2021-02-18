@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PracticaFormsControlLibrary
@@ -40,8 +35,7 @@ namespace PracticaFormsControlLibrary
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Hola" + maskedTextBox1.Text + "BAR" + comboBox1.SelectedItem);
-           
+            //System.Diagnostics.Debug.WriteLine("Valor " + maskedTextBox1.Text);           
             switch (comboBox1.SelectedItem)
             {
                 case bar1:
@@ -66,19 +60,13 @@ namespace PracticaFormsControlLibrary
 
             void comprobarDisponibilidad(string[] listaHorarios)
             {
-
-                System.Diagnostics.Debug.WriteLine("SACAR-" + maskedTextBox1.Text);
-
-                /*if (maskedTextBox1.Text.Equals("  :"))
+                if (listaHorarios.Contains(maskedTextBox1.Text))
                 {
-                    MessageBox.Show("DEBE INTRODUCIR UNA HORA", "ERROR", MessageBoxButtons.OK);
-                } else*/ if (listaHorarios.Contains(maskedTextBox1.Text))
-                {
-                    MessageBox.Show(text: "El bar '" + comboBox1.SelectedItem + "' se encuentra abierto", caption: "Disponibilidad", buttons: MessageBoxButtons.OK);
+                    MessageBox.Show(text: "El bar '" + comboBox1.SelectedItem + "' se encuentra abierto.", caption: "Disponibilidad", buttons: MessageBoxButtons.OK);
                 } else
                 {
-                    MessageBox.Show("Bar cerrado", "Disponibilidad", MessageBoxButtons.OK);
-                }            
+                    MessageBox.Show(text: "El bar '" + comboBox1.SelectedItem + "' se encuentra cerrado. Disculpe las molestias.", caption: "Disponibilidad", buttons: MessageBoxButtons.OK);
+                }
             }
         }
              
@@ -88,17 +76,6 @@ namespace PracticaFormsControlLibrary
                 button1.Enabled = true;
             else
                 button1.Enabled = false;
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            
-        }
-
-        private void maskedTextBox1_Leave(object sender, EventArgs e)
-        {
-            this.maskedTextBox1.Text = this.maskedTextBox1.Text.PadRight(this.maskedTextBox1.Mask.Length, '0');
-            this.maskedTextBox1.Text = this.maskedTextBox1.Text.PadLeft(this.maskedTextBox1.Mask.Length, '0');
         }
 
         private void maskedTextBox1_Enter(object sender, EventArgs e)
@@ -114,13 +91,13 @@ namespace PracticaFormsControlLibrary
 
             if (horas > 24)
             {
-                MessageBox.Show("No puede superar las 24 horas.", "ERROR", MessageBoxButtons.OKCancel);
+                MessageBox.Show("No puede superar las 24 horas.", "ERROR", MessageBoxButtons.OK);
                 seleccionarHoras(maskedTextBox1);
             }
-
+           
             if (minutos != 00)
             {
-                MessageBox.Show("Solo podrán ser horas exactas.", "ERROR", MessageBoxButtons.OKCancel);
+                MessageBox.Show("Solo podrán ser horas exactas.", "ERROR", MessageBoxButtons.OK);
                 seleccionarMinutos(maskedTextBox1);
             }
 
