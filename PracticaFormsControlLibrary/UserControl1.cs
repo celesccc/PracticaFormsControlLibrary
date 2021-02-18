@@ -16,7 +16,7 @@ namespace PracticaFormsControlLibrary
         string[] horario_bar1 = { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
         string[] horario_bar2 = { "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "00:00", "01:00", "02:00" };
         string[] horario_bar3 = { "09:00", "10:00", "11:00", "12:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
-        string[] horario_bar4 = { "12:00", "13:00", "14:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "01:00", "02:00" };
+        string[] horario_bar4 = { "12:00", "13:00", "14:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00", "24:00", "01:00", "02:00" };
         string[] horario_bar5 = { "23:00", "24:00", "00:00", "01:00", "02:00", "03:00", "04:00", "05:00" };
         string[] horario_bar6 = { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00" };
 
@@ -36,7 +36,6 @@ namespace PracticaFormsControlLibrary
         private void UserControl1_Load(object sender, EventArgs e)
         {
             this.maskedTextBox1.Mask = "00:00";
-            this.maskedTextBox1.PromptChar = '0';
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -66,12 +65,17 @@ namespace PracticaFormsControlLibrary
             }       
 
             void comprobarDisponibilidad(string[] listaHorarios)
-            {                
-                if (listaHorarios.Contains(maskedTextBox1.Text))
+            {
+
+                System.Diagnostics.Debug.WriteLine("SACAR-" + maskedTextBox1.Text);
+
+                /*if (maskedTextBox1.Text.Equals("  :"))
                 {
-                    MessageBox.Show("Bar abierto", "Disponibilidad", MessageBoxButtons.OK);
-                }
-                else
+                    MessageBox.Show("DEBE INTRODUCIR UNA HORA", "ERROR", MessageBoxButtons.OK);
+                } else*/ if (listaHorarios.Contains(maskedTextBox1.Text))
+                {
+                    MessageBox.Show(text: "El bar '" + comboBox1.SelectedItem + "' se encuentra abierto", caption: "Disponibilidad", buttons: MessageBoxButtons.OK);
+                } else
                 {
                     MessageBox.Show("Bar cerrado", "Disponibilidad", MessageBoxButtons.OK);
                 }            
@@ -80,7 +84,7 @@ namespace PracticaFormsControlLibrary
              
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem != null && !string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()))
+            if (comboBox1.SelectedItem != null && !string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()) && !maskedTextBox1.Text.Equals("  :"))
                 button1.Enabled = true;
             else
                 button1.Enabled = false;
@@ -94,6 +98,7 @@ namespace PracticaFormsControlLibrary
         private void maskedTextBox1_Leave(object sender, EventArgs e)
         {
             this.maskedTextBox1.Text = this.maskedTextBox1.Text.PadRight(this.maskedTextBox1.Mask.Length, '0');
+            this.maskedTextBox1.Text = this.maskedTextBox1.Text.PadLeft(this.maskedTextBox1.Mask.Length, '0');
         }
 
         private void maskedTextBox1_Enter(object sender, EventArgs e)
@@ -132,6 +137,14 @@ namespace PracticaFormsControlLibrary
                 mkt.SelectionStart = 3;
                 mkt.SelectionLength = 2;
             }
+        }
+
+        private void maskedTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null && !string.IsNullOrEmpty(comboBox1.SelectedItem.ToString()) && !maskedTextBox1.Text.Equals("  :"))
+                button1.Enabled = true;
+            else
+                button1.Enabled = false;
         }
     }
 }
